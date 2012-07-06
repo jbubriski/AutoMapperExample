@@ -28,7 +28,19 @@ namespace AutoMapperExample
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
+        }
 
+        public static void CreateMaps()
+        {
+            Mapper.CreateMap<Member, WelcomeViewModel>();
+
+            Mapper.CreateMap<Member, ProfileViewModel>()
+                .ForMember(dest => dest.ProfilePictureUrl, src => src.Ignore());
+
+            Mapper.CreateMap<Member, MembersViewModel>()
+                .ForMember(dest => dest.Name, src => src.ResolveUsing(m => string.Format("{0} {1}", m.FirstName, m.LastName)));
+
+            Mapper.AssertConfigurationIsValid();
         }
 
         protected void Application_Start()
@@ -37,12 +49,7 @@ namespace AutoMapperExample
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
-
-            Mapper.CreateMap<Member, WelcomeViewModel>();
-            Mapper.CreateMap<Member, ProfileViewModel>().ForMember(dest => dest.ProfilePictureUrl, src => src.Ignore());
-            Mapper.CreateMap<Member, MembersViewModel>().ForMember(dest => dest.Name, src => src.ResolveUsing(m => string.Format("{0} {1}", m.FirstName, m.LastName))); // <));
-
-            Mapper.AssertConfigurationIsValid();
+            CreateMaps();
         }
     }
 }
