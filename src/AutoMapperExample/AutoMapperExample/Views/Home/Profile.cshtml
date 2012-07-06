@@ -1,0 +1,9 @@
+﻿@model ViewModels.ProfileViewModel
+@{
+    ViewBag.Title = string.Format("{0}'s Profile", Model.FirstName);
+}
+<h2>@ViewBag.Title</h2>
+<p>
+    This is @Model.FirstName @Model.LastName's profile page!</p>
+<p>
+    His profile image is located at @Model.ProfilePictureUrl.</p>

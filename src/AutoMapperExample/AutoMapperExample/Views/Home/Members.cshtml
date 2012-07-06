@@ -1,0 +1,13 @@
+﻿@model List<ViewModels.MembersViewModel>
+@{
+    ViewBag.Title = "Members";
+}
+<h2>@ViewBag.Title</h2>
+<p>
+    Here is a full list of our members.</p>
+<ul>
+    @foreach (var member in Model)
+    {
+        <li>@Html.ActionLink(member.Name, "Profile", new { id = member.MemberId })</li>
+    }
+</ul>
